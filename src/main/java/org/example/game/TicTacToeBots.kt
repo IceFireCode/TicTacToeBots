@@ -14,7 +14,7 @@ class TicTacToeBots {
     fun start(){
         while (!board.isFinished()){
             // gameUI.showCurrentPlayer(currentPlayer)
-            // board.makeMove(currentPlayer)
+             board.makeMove(currentPlayer)
             // gameUI.showBoard(board)
         }
 
