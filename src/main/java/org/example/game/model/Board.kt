@@ -19,6 +19,8 @@ data class Board(
         }
     }
 
+    fun isFinished(): Boolean = getState() != GameState.Ongoing
+
     val fields: List<List<Player?>> = initialBoard ?: listOf(
         listOf(null, null, null),
         listOf(null, null, null),

@@ -48,6 +48,7 @@ class BoardTest {
 
         // Then
         assertEquals(GameState.Ongoing, result)
+        assertEquals(false, board.isFinished())
     }
 
     @Test
@@ -65,6 +66,7 @@ class BoardTest {
 
         // Then
         assertEquals(GameState.Won(byPlayer = TWO), result)
+        assertEquals(true, board.isFinished())
     }
 
     @Test
@@ -83,6 +85,7 @@ class BoardTest {
 
         // Then
         assertEquals(GameState.Won(byPlayer = ONE), result)
+        assertEquals(true, board.isFinished())
     }
 
     @Test
@@ -100,6 +103,7 @@ class BoardTest {
 
         // Then
         assertEquals(GameState.Draw, result)
+        assertEquals(true, board.isFinished())
     }
 
     @Test
@@ -118,6 +122,7 @@ class BoardTest {
 
         // Then
         assertEquals(GameState.Won(byPlayer = ONE), result)
+        assertEquals(true, board.isFinished())
     }
 
     @Test
@@ -136,5 +141,6 @@ class BoardTest {
 
         // Then
         assertEquals(GameState.Won(byPlayer = TWO), result)
+        assertEquals(true, board.isFinished())
     }
 }
