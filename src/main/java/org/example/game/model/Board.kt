@@ -14,6 +14,7 @@ data class Board(
             anyHorizontalWinner != null -> Won(byPlayer = anyHorizontalWinner)
             anyVerticalWinner != null -> Won(byPlayer = anyVerticalWinner)
             anyDiagonalWinner != null -> Won(byPlayer = anyDiagonalWinner)
+            isItADraw() -> GameState.Draw
             else -> GameState.Ongoing
         }
     }
@@ -35,12 +36,6 @@ data class Board(
         return mapColumsToRows.findHorizontalWinner()
     }
 
-    private fun List<List<Player?>>.findHorizontalWinner() = firstOrNull { row: List<Player?> ->
-        val allSelectedByPlayerOne = row.all { it == Player.ONE }
-        val allSelectedByPlayerTwo = row.all { it == Player.TWO }
-        allSelectedByPlayerOne || allSelectedByPlayerTwo
-    }?.first()
-
     private fun anyDiagonalWinner(): Player? {
         val mapDiagonalsToRows: List<List<Player?>> = listOf(
             listOf(fields[0][0], fields[1][1], fields[2][2]),
@@ -48,5 +43,13 @@ data class Board(
         )
         return mapDiagonalsToRows.findHorizontalWinner()
     }
+
+    private fun isItADraw(): Boolean = fields.all { it.all { it != null } }
+
+    private fun List<List<Player?>>.findHorizontalWinner() = firstOrNull { row: List<Player?> ->
+        val allSelectedByPlayerOne = row.all { it == Player.ONE }
+        val allSelectedByPlayerTwo = row.all { it == Player.TWO }
+        allSelectedByPlayerOne || allSelectedByPlayerTwo
+    }?.first()
 
 }
