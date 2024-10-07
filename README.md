@@ -4,7 +4,16 @@ Bricks Dojo kata 1 - Paul van Cappelle
 Hi! Do you want to play this game? It's Tic Tac Toe with two bots having a go at it against each other. They will try random moves to try to become the greatest of all time!
 
 ### How to use TicTacToeBots
-TODO (you can run the main class, of course)
+- Ensure you have Java Development Kit (JDK) installed.
+1. Build the project:
+    ```sh
+    ./gradlew clean shadowJar
+    ```
+
+2. Run the project:
+    ```sh
+    java -jar build/libs/my-kotlin-project-1.0-SNAPSHOT-all.jar
+    ```
 
 ### Future features and improvements:
 Let's have a chat together after you've played it. I'm very eager to learn if this is what you are looking for. Are we on the right track?
