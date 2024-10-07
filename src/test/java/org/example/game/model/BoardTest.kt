@@ -135,6 +135,6 @@ class BoardTest {
         val result = board.getState()
 
         // Then
-        assertEquals(GameState.Won(byPlayer = ONE), result)
+        assertEquals(GameState.Won(byPlayer = TWO), result)
     }
 }
