@@ -5,12 +5,29 @@ import org.junit.jupiter.api.Test
 
 class BoardTest {
 
-    private val allFieldsNotSelected = listOf(listOf(null, null, null), listOf(null, null, null), listOf(null, null, null))
+    @Test
+    fun `When a new board is created no fields are selected`() {
+        // When
+        val board = Board()
+
+        // Then
+        val expected = listOf(listOf(null, null, null), listOf(null, null, null), listOf(null, null, null))
+        assertEquals(expected, board.fields)
+    }
 
     @Test
-    fun `Given no initial board is provided, When a new board is created no fields are selected`() {
-        val board = Board()
-        val expectedFields: List<List<Player?>> = allFieldsNotSelected
-        assertEquals(expectedFields, board.fields)
+    fun `Given an initial board is provided, When a new board is created the fields are set to the provided boards fields`() {
+        // Given
+        val initialBoard = listOf(
+            listOf(null, Player.ONE, null),
+            listOf(null, Player.TWO, Player.ONE),
+            listOf(null, null, Player.TWO),
+        )
+
+        // When
+        val board = Board(initialBoard = initialBoard)
+
+        // Then
+        assertEquals(initialBoard, board.fields)
     }
 }
