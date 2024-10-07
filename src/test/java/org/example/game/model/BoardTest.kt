@@ -173,4 +173,29 @@ class BoardTest {
         )
         assertEquals(expected, result)
     }
+
+    @Test
+    fun `Given a random move that cannot be executed, but the second random move can, When a move needs to be made, the updated Board is returned`() {
+        // Given
+        val randomMove1 = 1 to 1
+        val randomMove2 = 2 to 2
+        val getRandomMove = FakeGetRandomMove(values = listOf(randomMove1, randomMove2))
+        val initialBoard: MutableList<MutableList<Player?>> = mutableListOf(
+            mutableListOf(null, null, null),
+            mutableListOf(null, ONE, null),
+            mutableListOf(null, null, null),
+        )
+
+        // When
+        val board = Board(getRandomMove = getRandomMove, initialBoard = initialBoard)
+        val result = board.makeMove(TWO).fields
+
+        // Then
+        val expected = mutableListOf(
+            mutableListOf(null, null, null),
+            mutableListOf(null, ONE, null),
+            mutableListOf(null, null, TWO),
+        )
+        assertEquals(expected, result)
+    }
 }
