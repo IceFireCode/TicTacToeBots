@@ -1,9 +1,12 @@
 package org.example.game.model
 
+import org.example.game.GetRandomMove
+import org.example.game.GetRandomMoveImpl
 import org.example.game.model.GameState.Won
 
 data class Board(
-    val initialBoard: List<List<Player?>>? = null, // this param allows for setting the start state in tests
+    val getRandomMove: GetRandomMove = GetRandomMoveImpl(),
+    val initialBoard: MutableList<MutableList<Player?>>? = null, // this param allows for setting the start state in tests
 ) {
     fun getState(): GameState {
         val anyHorizontalWinner = anyHorizontalWinner()
@@ -21,21 +24,33 @@ data class Board(
 
     fun isFinished(): Boolean = getState() != GameState.Ongoing
 
-    val fields: List<List<Player?>> = initialBoard ?: listOf(
-        listOf(null, null, null),
-        listOf(null, null, null),
-        listOf(null, null, null),
+    val fields: MutableList<MutableList<Player?>> = initialBoard ?: mutableListOf(
+        mutableListOf(null, null, null),
+        mutableListOf(null, null, null),
+        mutableListOf(null, null, null),
     )
+
+    fun makeMove(player: Player): Board {
+        var foundAMove = false
+        while (!foundAMove) {
+            val potentialMove: Pair<Int, Int> = getRandomMove()
+            if (fields[potentialMove.first][potentialMove.second] == null) {
+                fields[potentialMove.first][potentialMove.second] = player
+                foundAMove = true
+            }
+        }
+        return this
+    }
 
     private fun anyHorizontalWinner(): Player? = fields.findHorizontalWinner()
 
     private fun anyVerticalWinner(): Player? {
-        val mapColumsToRows: List<List<Player?>> = listOf(
+        val mapColumnsToRows: List<List<Player?>> = listOf(
             listOf(fields[0][0], fields[1][0], fields[2][0]),
             listOf(fields[0][1], fields[1][1], fields[2][1]),
             listOf(fields[0][2], fields[1][2], fields[2][2]),
         )
-        return mapColumsToRows.findHorizontalWinner()
+        return mapColumnsToRows.findHorizontalWinner()
     }
 
     private fun anyDiagonalWinner(): Player? {
